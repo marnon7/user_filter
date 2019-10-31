@@ -1,0 +1,6 @@
+tmp/dv_input/client/*
+tmp/dv_input/dv/*
+tmp/dv_input/*
+tmp/dv_output/*
+.idea/*
+__pycache__/*
