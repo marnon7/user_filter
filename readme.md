@@ -1,8 +1,14 @@
 把用户的检测名单放在dv_input/client, 必须是xlsx格式, 
 
-把datavisor的检测结果放在dv_input/dv, csv格式
+把dv的检测结果放在dv_input/dv, csv格式
+
+如果是第一次运行需要建好文件夹：
+
+python init.py 
+
+运行
 
 python main.py
 
-运行结果在dv_output/dv, 目录结构和dv_input/dv一致, 是增益的部分
+运行结果在dv_output/dv, 目录结构和dv_input/dv一致, 是dv增益的部分
 
