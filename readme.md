@@ -1,3 +1,9 @@
+运行环境 python3.6+
+
+依赖：
+pip install openpyxl 
+
+
 把用户的检测名单放在dv_input/client, 必须是xlsx格式, 
 
 把dv的检测结果放在dv_input/dv, csv格式
