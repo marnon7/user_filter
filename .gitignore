@@ -1,7 +1,5 @@
-tmp/dv_input/client/*
-tmp/dv_input/dv/*
-tmp/dv_input/*
-tmp/dv_output/*
+tmp/*
+data/*
 .idea/*
 __pycache__/*
 .vscode/*

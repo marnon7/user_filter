@@ -11,6 +11,8 @@ def read_xlsx(path, header=None):
     ws = wb.get_active_sheet()
     ret = []
     cnt = 0
+    if not ws:
+        return 
     for row in ws.rows:
         cnt += 1
         if cnt == 1 and header is None:

@@ -5,8 +5,8 @@ from util import load_data_from_csv
 from util import read_xlsx
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_dir', default='input')
-parser.add_argument('--output_dir', default='output')
+parser.add_argument('--input_dir', default='data/input')
+parser.add_argument('--output_dir', default='data/output')
 parser.add_argument('--datavisor_dir_name', default='datavisor')
 parser.add_argument('--af_dir_name', default='af')
 parser.add_argument('--dv_id', default='user_id')
@@ -27,13 +27,13 @@ if __name__ == '__main__':
     b = set()
     for root, subdirs, files in os.walk(client_root):
         for file in files:
-            if '.' not in file:
+            path = os.path.join(root, file)
+            # skip office temp file
+            if file.startswith('~$'):
                 continue
             if file.endswith('.xlsx'):
-                path = os.path.join(root, file)
                 t = read_xlsx(path)
             elif file.endswith('.csv'):
-                path = os.path.join(root, file)
                 (header, t) = load_data_from_csv(path)
             else:
                 continue
@@ -44,10 +44,30 @@ if __name__ == '__main__':
 
     for root, subdirs, files in os.walk(dv_root):
         for file in files:
-            if '.' not in file or not file.endswith('.csv'):
+            # if '.' not in file or not file.endswith('.csv'):
+            #     continue
+
+            # skip office temp file
+            if file.startswith('~$'):
+                print("skip office temp file : {}".format(file))
                 continue
             path = os.path.join(root, file)
-            opath = os.path.join(path.replace('input', 'output'))
-            header, a = load_data_from_csv(path)
+
+            if file.endswith('.xlsx'):
+                a = read_xlsx(path)
+                header = [ns.af_id]
+                output_path = os.path.join(os.path.join(root.replace(
+                    'input', 'output'), file.replace('.xlsx', '_output.csv')))
+            elif file.endswith('.csv'):
+                output_path = os.path.join(os.path.join(root.replace(
+                    'input', 'output'), file.replace('.csv', '_output.csv')))
+                header, a = load_data_from_csv(path)
+            else:
+                continue
+            if not a:
+                print("Warning: file {} is empty or unreadable".format(path))
+                continue
             a = [row for row in a if ns.af_id in row and row[ns.af_id] not in b]
-            write_csv_to_file(opath, header, a)
+
+            write_csv_to_file(output_path, header, a)
+            print("original:{}, target:{}".format(path, output_path))
