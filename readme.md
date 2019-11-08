@@ -18,3 +18,16 @@ python main.py
 
 运行结果在dv_output/dv, 目录结构和dv_input/dv一致, 是dv增益的部分
 
+### 2019/11/07 增加删除af结果与datavisor结果重合用户的功能
+
+1. 如果是第一次运行,需要执行初始化脚本以建好文件夹：
+    
+    ```python init.py ```
+
+2. 将af数据放在 `data/input/af` 路径下，将datavisor的报告 放在`data/input/datavisor`路径下
+
+3. 执行主程序:
+    
+    ```python af_user_filter.py```
+
+运行结果在 `data/output/` 路径下, 目录结构和 `input` 一致
